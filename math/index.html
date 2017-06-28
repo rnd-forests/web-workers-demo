@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Workers love math</title>
+</head>
+<body>
+
+<script>
+    if (window.Worker) {
+        var worker = new Worker('./math/prime.js')
+        worker.postMessage('')
+        worker.addEventListener('message', function (e) {
+            console.log(e.data)
+        }, false)
+    }
+
+    console.log('I don\'t have to wait for prime calculator to complete.')
+</script>
+</body>
+</html>

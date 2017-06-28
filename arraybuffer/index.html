@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Array Buffer</title>
+</head>
+<body>
+
+<script>
+var worker = new Worker('./arraybuffer/worker.js')
+var uInt8Array = new Uint8Array(new ArrayBuffer(100))
+for (var i = 0; i < uInt8Array.length; i++) {
+    uInt8Array[i] = i * 2
+}
+
+console.log('uInt8Array.toString() = ' + uInt8Array.toString());
+console.log('uInt8Array.byteLength = ' + uInt8Array.byteLength);
+
+worker.postMessage(uInt8Array);
+</script>
+</body>
+</html>

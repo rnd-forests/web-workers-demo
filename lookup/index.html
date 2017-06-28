@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>What are you looking for?</title>
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+</head>
+<body>
+
+<form>
+    <select>
+        <option value="">--</option>
+        <option value="angular">AngularJS</option>
+        <option value="vuejs">VueJS</option>
+        <option value="reactjs">ReactJS</option>
+        <option value="rails">Ruby on Rails</option>
+    </select>
+</form>
+<output></output>
+
+<script>
+    if (window.Worker) {
+        var worker = new Worker('./lookup/lookup.js')
+        var sites = $('select')
+
+        worker.postMessage('Worker starts')
+
+        worker.addEventListener('message', function (e) {
+            console.log(e.data)
+        })
+
+        sites.on('change', function () {
+            var selectedSite = $(this).find('option:selected').val()
+            selectedSite && worker.postMessage(selectedSite)
+        })
+
+        worker.onmessage = function (e) {
+            $('output').html(e.data)
+        }
+    }
+</script>
+</body>
+</html>

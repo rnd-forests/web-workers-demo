@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inline Workers</title>
+</head>
+<body>
+
+<script>
+var url
+var blob = new Blob([
+    "addEventListener('message', function() { postMessage('Hello from the worker.') }, false)"
+])
+console.log(blob)
+
+url = window.URL.createObjectURL(blob)
+console.log(url)
+
+var worker = new Worker(url)
+worker.addEventListener('message', function (e) {
+    console.log(e.data)
+    window.URL.revokeObjectURL(url)
+}, false)
+worker.postMessage('')
+</script>
+</body>
+</html>

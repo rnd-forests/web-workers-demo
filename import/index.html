@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Importing Scripts</title>
+</head>
+<body>
+
+<script>
+if (window.Worker){
+    var worker = new Worker('./import/main.js')
+    worker.postMessage('')
+}
+</script>
+</body>
+</html>
